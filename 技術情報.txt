@@ -1,0 +1,18 @@
+元ファイル：インベーダーゲーム.sb3（同梱original.sb3は無変更）
+変換：@turbowarp/packager 3.14.0、HTML出力
+30fps、480×360、Turbo無効、補間無効、コンパイラー無効、標準300クローン制限。元作品のブロック・画像・音声は変更せず同梱。
+旗の処理は読み込み時に実行し、STARTはSキーの押下・解放を入力します。
+DOMの疑似KeyboardEventではなく、TurboWarpが公開するwindow.vm.postIOData('keyboard', {key,isDown})へ入力します。移動は押下状態を保持し、発射とSTARTは1組の押下・解放のみ送ります。
+発射は元のevent_whenkeypressed(space)へ接続。移動は元のsensing_keypressedへ接続。
+複数指とマウスに対応。pointer captureで領域外での解放を拾い、pointercancel、lostpointercapture、アプリ切替時にキーを解放します。物理キーとタッチキーは入力元を分けて保持します。
+全ゲーム素材とランタイムはgame.html内に埋め込み。外部CDNへの参照は不要です。サービスワーカーはこのフォルダー内の実行ファイルを事前保存し、全保存完了後に準備完了を通知します。
+GitHub Pagesのリポジトリー配下を想定し、相対パス・相対スコープを使用しています。
+ゲーム内のハイスコア等を追加で永続保存する処理は入れていません。
+
+TurboWarp Packagerとランタイムの著作権・ライセンス表示はgame.html内に含まれます。
+公式ソース：https://github.com/TurboWarp/packager
+ライセンス：Mozilla Public License 2.0
+https://www.mozilla.org/en-US/MPL/2.0/
+元作品とその素材の権利は各権利者に帰属します。
+
+修正版v2ではfile://で直接開いた場合に埋め込みHTMLをiframeのsrcdocに読み込みます。これによりChromeのローカルファイル間のアクセス制限を回避します。httpsでの公開時は従来どおりgame.htmlを使用します。
